@@ -1,0 +1,60 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# pairWQS
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of pairWQS is to perform WQS analysis for design with paired
+data structure, such as case-control and case-crossover study
+
+## Installation
+
+You can install the development version of pairWQS from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("Guo-yi-y/pairWQS")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(pairWQS)
+result <- pairwqs(
+  train_data = train_data,
+  valid_data = valid_data,
+  col_vars = col_vars,
+  col_covars = NULL,
+  id = "studyid", 
+  event = "event", 
+  q=4, 
+  boot = FALSE
+)
+```
+
+In environmental study, researchers usually to adjust the spline terms
+of temperature and humidity. For example, you may want to adjust
+ns(temp, 3) and ns(hum, 3), then you can perform:
+
+``` r
+train_data = cbind(train_data, ns(train_data$temp, 3), ns(train_data$hum, 3))
+
+names(train_data)[ (ncol(train_data)-5):ncol(train_data)] = c("ns_temp1", "ns_temp2", "ns_temp3", "ns_h1", "ns_h2", "ns_h3")
+result <- pairwqs(
+  train_data = train_data,
+  valid_data = valid_data,
+  col_vars = col_vars,
+  col_covars = c("ns_temp1", "ns_temp2", "ns_temp3", "ns_h1", "ns_h2", "ns_h3"),
+  id = "studyid", 
+  event = "event", 
+  q=4, 
+  boot = FALSE
+)
+```
+
+Reference
