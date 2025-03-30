@@ -181,7 +181,7 @@ pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "st
 
   valid_design_mat = as.matrix(wholedata[col_vars])
 
-  wholedata$wqs = valid_design_mat %*% final.weights
+  wholedata$wqs = valid_design_mat %*% weights
 
   if (length(col_covars) == 0){
     fit = coxph(Surv(time, event) ~ wqs +strata(id), data = wholedata)
