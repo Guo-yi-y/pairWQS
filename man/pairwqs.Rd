@@ -6,7 +6,7 @@
 \usage{
 pairwqs(
   train_data,
-  valid_data,
+  valid_data = NULL,
   col_vars,
   col_covars,
   id = "studyid",

@@ -190,7 +190,7 @@ pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "st
   }
 
   newlist<-list (vars = col_vars,
-                 "final.weights" = weights_avg, valid_mod = fit)
+                 "final.weights" = weights, valid_mod = fit)
   return(newlist)
 
 }
