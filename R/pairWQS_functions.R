@@ -1,4 +1,4 @@
-utils::globalVariables(c("final.weights", "weights_avg", "n_covar", "time"))
+utils::globalVariables(c("final.weights", "weights_avg", "n_covars", "time"))
 
 #' @import dplyr
 #' @import glue
@@ -81,7 +81,7 @@ pairwqs_noboot <- function(wqsdata, col_vars, col_covars, id = "studyid", event 
 
   eqn1=function(x){z1=sum(x[3:(2 + n_exps)]); return(z1)}
   eqn2=function(x){vec = x[3:(2 + n_exps)];return(vec)}
-  x0 = c(rep(0.5,2 + n_exps), rep(0, n_covar))#initial values
+  x0 = c(rep(0.5,2 + n_exps), rep(0, n_covars))#initial values
   pars = solnp(x0, fun = fn, eqfun = eqn1 , eqB = 1, ineqfun = eqn2,
                ineqLB = rep(0.001,n_exps), ineqUB = rep(0.999,n_exps), control = list(maxiter = 1000, tol = 1e-10, trace = 1))
 
@@ -161,7 +161,12 @@ pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "
 #' @export
 #'
 #'
-pairwqs = function(train_data, valid_data, col_vars, col_covars, id = "studyid", event = "event", q=4, boot = FALSE, B=10){
+pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "studyid", event = "event", q=4, boot = FALSE, B=10){
+
+  if (is.null(valid_data)) {
+    valid_data <- train_data
+  }
+
   if(boot == FALSE){
     train_res = pairwqs_noboot(train_data, col_vars, col_covars, id, event, q)
   } else {
