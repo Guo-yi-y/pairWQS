@@ -2,11 +2,11 @@
 
 export(pairwqs)
 export(pairwqs_boot)
-export(pairwqs_noboot)
 import(Rsolnp)
 import(dplyr)
 import(glue)
 import(magrittr)
+import(reticulate)
 import(survival)
 importFrom(stats,as.formula)
 importFrom(survival,Surv)
