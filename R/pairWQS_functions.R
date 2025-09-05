@@ -72,7 +72,7 @@ pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "
 #'
 pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "studyid", event = "event", q=4, boot = FALSE, B=10){
 
-  q = as.integer(4)
+  q = as.integer(q)
   if (is.null(valid_data)) {
     valid_data <- train_data
   }
