@@ -34,8 +34,9 @@ pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "
                       ))
 
   })
-  weights_avg = res_list %>% bind_rows() %>% colMeans() %>% .[, 1: (ncol(.)-1) ]
-  wqs_beta_avg = res_list %>% bind_rows() %>% colMeans() %>% .[, ncol(.)]
+  res_avg = res_list %>% bind_rows() %>% colMeans()
+  weights_avg = res_avg[, 1: (ncol(res_avg)-1) ]
+  wqs_beta_avg = res_avg[, ncol(res_avg)]
 
 
   wholedata = wqsdata
