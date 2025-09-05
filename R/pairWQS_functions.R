@@ -89,6 +89,8 @@ pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "st
 
   weights = train_res$final.weights
 
+  wqs_beta = train_res$wqs_beta
+
   valid_design_mat = as.matrix(wholedata[col_vars])
 
   wholedata$wqs = valid_design_mat %*% weights
@@ -100,6 +102,7 @@ pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "st
   }
 
   newlist<-list (vars = col_vars,
+                 wqs_beta = wqs_beta,
                  "final.weights" = weights, valid_mod = fit)
   return(newlist)
 
