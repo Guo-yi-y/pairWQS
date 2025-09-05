@@ -72,12 +72,13 @@ pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "
 #'
 pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "studyid", event = "event", q=4, boot = FALSE, B=10){
 
+  q = as.integer(4)
   if (is.null(valid_data)) {
     valid_data <- train_data
   }
 
   if(boot == FALSE){
-    train_res = pairwqs_noboot(train_data, col_vars, col_covars, id, event, q)
+    train_res = py$pairwqs_noboot(train_data, col_vars, col_covars, id, event, q)
   } else {
     train_res = pairwqs_boot(train_data, col_vars, col_covars, id, event, q, B)
   }
