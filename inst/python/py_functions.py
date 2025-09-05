@@ -128,8 +128,8 @@ def pairwqs_noboot(wqsdata, col_vars, col_covars=None,
     # initial parameters
     n_exps = design.shape[1]
     n_cov = covar.shape[1]
-    x0 = np.concatenate(([0.2], np.full(n_exps, 1/n_exps), np.zeros(n_cov)))
-    bounds = [(0.001, None)] + [(0.001, None)]*n_exps + [(None, None)]*n_cov
+    x0 = np.concatenate(([1], np.full(n_exps, 1/n_exps), np.zeros(n_cov)))
+    bounds = [(1e-6, None)] + [(1e-6, None)]*n_exps + [(None, None)]*n_cov
     cons = ({'type': 'eq', 'fun': lambda x: np.sum(x[1:1+n_exps]) - 1},)
 
     # optimize using JIT-compiled functions
