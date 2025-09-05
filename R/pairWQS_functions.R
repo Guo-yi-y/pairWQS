@@ -28,13 +28,11 @@ NULL
 pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "event", q=4, B=10){
 
   res_list = lapply(1:B, function(i){
-
-    return(data.frame(t(py$pairwqs_noboot(sample_n(wqsdata, nrow(wqsdata), replace = T), col_vars, col_covars,id, event, q)$final.weights),
-                      py$pairwqs_noboot(sample_n(wqsdata, nrow(wqsdata), replace = T), col_vars, col_covars,id, event, q)$wqs_beta
-                      ))
+    temp_res = py$pairwqs_noboot(sample_n(wqsdata, nrow(wqsdata), replace = T), col_vars, col_covars,id, event, q)
+    return(data.frame(t(temp_res$final.weights),temp_res$wqs_beta))
 
   })
-  res_avg = res_list %>% bind_rows() %>% colMeans()
+  res_avg = res_list %>% bind_rows() %>% colMeans() %>% data.frame() %>% t()
   weights_avg = res_avg[, 1: (ncol(res_avg)-1) ]
   wqs_beta_avg = res_avg[, ncol(res_avg)]
 
