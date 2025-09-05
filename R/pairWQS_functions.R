@@ -96,7 +96,7 @@ pairwqs = function(train_data, valid_data = NULL, col_vars, col_covars, id = "st
   if (length(col_covars) == 0){
     fit = coxph(Surv(time, event) ~ wqs +strata(id), data = wholedata)
   } else{
-    fit = coxph(as.formula( glue("Surv(time, event) ~ wqs+{paste(col_vars, collapse = '+')}+strata(id)") ), data = wholedata)
+    fit = coxph(as.formula( glue("Surv(time, event) ~ wqs+{paste(col_covars, collapse = '+')}+strata(id)") ), data = wholedata)
   }
 
   newlist<-list (vars = col_vars,
