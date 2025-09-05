@@ -29,10 +29,14 @@ pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "
 
   res_list = lapply(1:B, function(i){
 
-    return(data.frame(t(py$pairwqs_noboot(sample_n(wqsdata, nrow(wqsdata), replace = T), col_vars, col_covars,id, event, q)$final.weights)))
+    return(data.frame(t(py$pairwqs_noboot(sample_n(wqsdata, nrow(wqsdata), replace = T), col_vars, col_covars,id, event, q)$final.weights),
+                      py$pairwqs_noboot(sample_n(wqsdata, nrow(wqsdata), replace = T), col_vars, col_covars,id, event, q)$wqs_beta
+                      ))
 
   })
-  weights_avg = res_list %>% bind_rows() %>% colMeans()
+  weights_avg = res_list %>% bind_rows() %>% colMeans() %>% .[, 1: (ncol(.)-1) ]
+  wqs_beta_avg = res_list %>% bind_rows() %>% colMeans() %>% .[, ncol(.)]
+
 
   wholedata = wqsdata
   wholedata$id = wholedata[[id]]
@@ -45,11 +49,11 @@ pairwqs_boot = function(wqsdata, col_vars, col_covars, id = "studyid", event = "
   if (length(col_covars) == 0){
     fit = coxph(Surv(time, event) ~ wqs +strata(id), data = wholedata)
   } else{
-    fit = coxph(as.formula( glue("Surv(time, event) ~ wqs+{paste(col_vars, collapse = '+')}+strata(id)") ), data = wholedata)
+    fit = coxph(as.formula( glue("Surv(time, event) ~ wqs+{paste(col_covars, collapse = '+')}+strata(id)") ), data = wholedata)
   }
 
   newlist<-list (vars = col_vars,
-                 "final.weights" = weights_avg, "wqs_beta" = summary(fit)$coefficient)
+                 "final.weights" = weights_avg, "wqs_beta" = wqs_beta_avg)
 
   return(newlist)
 }
