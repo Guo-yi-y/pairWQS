@@ -72,7 +72,9 @@ result <- pairwqs(
 )
 ```
 
-Reference Guo, Y., Peng, Z., Liu, Y. et al. Differential impacts of
-short-term PM2.5 constituent exposure on type 2 diabetes mellitus: a
-nationwide case-crossover study with advanced statistical insights. Sci.
-China Life Sci. (2026). <https://doi.org/10.1007/s11427-025-3107-4>
+\##Reference
+
+Guo, Y., Peng, Z., Liu, Y. et al. Differential impacts of short-term
+PM2.5 constituent exposure on type 2 diabetes mellitus: a nationwide
+case-crossover study with advanced statistical insights. Sci. China Life
+Sci. (2026). <https://doi.org/10.1007/s11427-025-3107-4>
