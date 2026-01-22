@@ -72,7 +72,7 @@ result <- pairwqs(
 )
 ```
 
-\##Reference
+## Reference
 
 Guo, Y., Peng, Z., Liu, Y. et al. Differential impacts of short-term
 PM2.5 constituent exposure on type 2 diabetes mellitus: a nationwide
