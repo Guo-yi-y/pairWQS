@@ -86,7 +86,7 @@ def gradient_numba(x, design, covar, group_start, group_end, case_offset):
 
 
 def pairwqs_noboot(wqsdata, col_vars, col_covars=None,
-                          id_col="studyid", event_col="event", q=4):
+                          id_col="studyid", event_col="event", q=4,N="number):
     """
     Conditional logistic WQS (no bootstrap) using Numba for speed.
     Returns: dict with variable names, final weights, and wqs_beta.
